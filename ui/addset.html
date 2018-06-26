@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="UTF-8">
+    <title>智能家居管理平台</title>
+    <script src="../js/jquery-3.2.1.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap.min.new.css"/>
+    <link rel="stylesheet" href="../css/bootstrap-maizi.css"/>
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="#" class="navbar-brand">智能家居管理平台</a>
+        </div>
+        <!--导航-->
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">admin<span
+                            class="caret"></span></a>
+                </li>
+                <li><a href="#"><span class="glyphicon glyphicon-off"></span>&nbsp;&nbsp;退出</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="list-group">
+                <a href="/setAdmin" class="list-group-item active">设备管理</a>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="page-header">
+                <h1>添加设备</h1>
+            </div>
+            <form class="navbar-form navbar-collapse">
+                <div class="form-group">
+                    <input type="text" placeholder="请输入设备名称" class="form-control" id="dname">
+                </div>
+                <br>
+                <br>
+                <div class="form-group">
+                    <input type="text" placeholder="请输入设备连接形式" class="form-control" id="connectType">
+                </div>
+                <br>
+                <br>
+                <button type="submit" class="btn btn-success" id="yesAdd">添加</button>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    $("#yesAdd").click(function () {
+        var deviceName = $("#dname").val();
+        var deviceType = $("#connectType").val();
+        if (deviceName.length > 0 && deviceType.length > 0) {
+            $.ajax({
+                url: "/saveDevice?dname=" + deviceName + "&connectType=" + deviceType,
+                success: function (data) {
+                    var code = data.resultCode;
+                    if (code == 0) {
+                        window.location.href = "/setAdmin";
+                    }
+                }
+            });
+        } else {
+            alert("请输入设备信息");
+        }
+    });
+</script>
+
+
+<script src="../js/jquery-3.2.1.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+
+
+</body>
+</html>
